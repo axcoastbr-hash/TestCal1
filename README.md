@@ -53,3 +53,11 @@ A seção **"Testes de Sanidade"** é visível no browser e executa automaticame
 1. SUP ajustado com os valores de referência.
 2. Validação de integridade do äx(12).
 3. Coerência VAEBA_BRUTA > VAEBA_AJUSTADA.
+4. Sanidade da escala da tábua AT-2000 suavizada.
+5. Caso parecer (golden test) com checagem de äx(12) bruto/usado.
+
+## Correções do motor (parsing e fatores)
+
+- **Causa identificada:** parsing de competência INPC aceitava entrada inválida e a seleção de taxa usava o ano do cálculo em vez do último exercício fechado; além disso, o FCB não estava embutido no äx(12).
+- **Correção aplicada:** validação MM/AAAA com faixa de ano, fallback de INPC final para a última competência disponível, regra de juros por ano do cálculo - 1 (com override opcional), äx(12) bruto + aplicado (FCB) registrados na auditoria.
+- **Garantias de não regressão:** testes de sanidade da escala do qx e o teste “caso parecer” verificam SUP ajustado, äx(12) bruto/usado e coerência dos resultados.
